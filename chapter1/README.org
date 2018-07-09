@@ -1,0 +1,14 @@
+* Category: The Essence of Computation
+  - /Category/ consists of objects and arrows.
+  - Essence of category is /composition/.
+  - Essence of composition is /category/.
+  - Arrows compose.
+** Arrows as Functions
+   - Arrows, also called as /morphisms/, can be /functions/.
+** Properties of Composition
+   - Composition is associative.
+   - Every object has an identity arrow that serves as a unit under composition.
+   - Unit arrow for object A is called id_{A}
+     #+BEGIN_SRC latex
+     f\textordmasculine{}id{A} = f
+     #+END_SRC

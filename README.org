@@ -1,0 +1,3 @@
+* Why Category theory?
+  - Category theory deals with structure.
+  - Structures that make programs composable.
