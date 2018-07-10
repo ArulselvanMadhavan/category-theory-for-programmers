@@ -9,6 +9,18 @@
    - Composition is associative.
    - Every object has an identity arrow that serves as a unit under composition.
    - Unit arrow for object A is called id_{A}
-     #+BEGIN_SRC latex
-     f\textordmasculine{}id{A} = f
+     #+BEGIN_SRC haskell
+     f . id = f
      #+END_SRC
+** Units of composition
+   - "Surface area has to increase slower than volume"
+   - Surface area is the info we need in order to compose chunks.
+   - Volume is the info we need in order to implement them.
+   - Once we implement composition, we forget about the details of
+     composition and concentrate on how it interacts with other chunks.
+   - OOP - Surface area is the class declaration of the
+     object/abstract interface.
+   - FP - Surface area is the declation function.
+   - *Category theory* actively discourages us from looking inside the objects.
+   - *Category theory* encourages you to think about how it relates to
+     other objects.
