@@ -1,0 +1,51 @@
+* Categories Great and Small
+** No Objects
+   - Category with zero objects
+   - zero morphisms
+   - Not very useful by itself.
+   - Becomes useful in the context of other categories
+** Simple Graphs
+   - Build categories by connecting objects with arrows.
+   - Graph to Category
+     - Directed Graph
+     - Add identity arrow at each node
+     - Take two Composable arrows and add a new arrow to serve as
+       their composition.
+     - Add as many arrows as you can
+   - /Free Category/
+     - The process of completing a given structure by extending it
+       with minimum number of items to satisfy its laws(laws of category)
+** Orders
+   - A category where a morphism is a relation between objects.
+   - Hom-set
+     - A set of morphisms going from object a to object b in a
+       category C
+     - C(a,b)
+   - Pre Order
+     - There is atmost one morphism going from any object /a/ to any
+       object /b/.
+     - "Thin" Category
+     - C(a, a) - singleton (Identity arrow)
+     - Cycles are allowed
+   - Partial Order
+     - Cycles are not allowed
+   - Total Order
+   - Sorting algorithms can only work on total orders.
+   - Partial orders can be sorted using topological sort.
+** Monoids as Set
+   - Traditionally, monoid is defined as a set with a binary operation.
+   - Binary operation
+     - Needs to be associative
+     - There is one special element that behaves like unit with
+       respect to the binary operation.
+   - Point-free
+     - Function equality without specifying the arguments is described
+       as point-free.
+** Monoid as Category
+   - A Monoid is a single object category with a set of morphisms that
+     follow appropriate rules of composition.
+   - We can always recover a set monoid from a category monoid. For
+     all intents and purposes they are one and the same.
+** Morphisms don't have to form a set
+   - A category in which morphisms between any two objects form a set
+     is called locally small.
