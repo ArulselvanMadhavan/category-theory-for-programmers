@@ -2,4 +2,8 @@
   - Category theory deals with structure.
   - Structures that make programs composable.
 * Links to notes
+  - [[file:chapter1/README.org][Chapter1]]
+  - [[file:chapter2/README.org][Chapter2]]
+  - [[file:chapter3/README.org][Chapter3]]
+  - [[file:chapter4/README.org][Chapter4]]
   - 

@@ -1,0 +1,18 @@
+* Simple Algebraic Data Types
+** Composing types
+   - Using Product Types and Co-product types many composite types can
+     be derived.
+   - We can also derive the notion of equality, comparison and
+     conversion to string for many composite types from the definition
+     of the simpler types and generalizing them to composite types
+     made of product and co-products of simpler types.
+** Product types
+   - Represented using Pairs.
+   - Pairs are not /commutative/
+   - Pairs are commutative up to isomorphism.
+     #+BEGIN_SRC haskell
+     swap :: (a, b) -> (b, a)
+     swap (x, y) = (y, x)
+     #+END_SRC
+** Records
+   - A product type with named fields.

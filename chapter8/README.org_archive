@@ -1,0 +1,24 @@
+
+Archived entries from file /home/arul/dev/category-theory-for-programmers/chapter8/README.org
+
+
+* Reader functor
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2019-01-14 Mon 21:22
+  :ARCHIVE_FILE: ~/dev/category-theory-for-programmers/chapter8/README.org
+  :ARCHIVE_OLPATH: Functoriality/Covariant and Contravariant Functors
+  :ARCHIVE_CATEGORY: README
+  :END:
+  #+BEGIN_SRC haskell
+  type Reader r a = r -> a
+  #+END_SRC
+  - Pair and Either were bifunctors.
+  - Is function constructor a bifunctor?
+    #+BEGIN_SRC haskell
+    type Op r a = a -> r
+    #+END_SRC
+  - fmap implementation
+    #+BEGIN_SRC haskell
+    fmap :: (a -> b) -> (a -> r) -> (b -> r)
+    #+END_SRC
+    - Implementing this is only possible if we had (b -> a)

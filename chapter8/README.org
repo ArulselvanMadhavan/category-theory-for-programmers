@@ -1,0 +1,87 @@
+* Functoriality
+** Writer Functor
+   #+BEGIN_SRC haskell
+   type Writer a = (a, String)
+   #+END_SRC
+** Kleisli Category and a functor
+   - Kleisli
+     - Composition (>=>)
+       #+BEGIN_SRC haskell
+       (>=>) :: (a -> Writer b) -> (b -> Writer c) -> (a -> Writer c)
+       m1 >=> m2 = \x ->
+          let (y, s1) = m1 x
+              (z, s2) = m2 y
+          in (z, s1 ++ s2)
+       #+END_SRC
+     - Identity morphism
+       #+BEGIN_SRC haskell
+       return :: a -> Writer a
+       return x = (x, "")
+       #+END_SRC
+     - fmap implementation
+       #+BEGIN_SRC haskell
+       fmap f = id >=> (\x -> return (f x))
+       #+END_SRC
+   - The embellishment in Kleisli is always a functor.
+   - Theorems for Free:
+     - If there is an implementation of /fmap/ for a given type
+       constructor, one that preserves identity, then it must be unique.
+** Covariant and Contravariant Functors
+*** Reader functor
+    #+BEGIN_SRC haskell
+    type Reader r a = r -> a
+    #+END_SRC
+    - Pair and Either were bifunctors.
+    - Is function constructor a bifunctor?
+      #+BEGIN_SRC haskell
+      type Op r a = a -> r
+      #+END_SRC
+    - fmap implementation
+      #+BEGIN_SRC haskell
+      fmap :: (a -> b) -> (a -> r) -> (b -> r)
+      #+END_SRC
+      - Implementing this is only possible if we had (b -> a)
+    - For every category C, there is a dual category C^op
+    - It's a category with the same objects as C, but with all the
+      arrows reversed.
+    - A functor in C^op and some other category D
+      F :: C^op -> D
+    - Functor maps a morphism 
+      f^op :: b -> a in C^op
+      to
+      Ff^op :: Fa -> Fb
+    - There must be some morphism f:: a -> b in original category C.
+    - Contravariant Functor
+      #+BEGIN_SRC haskell
+      Gf :: (b -> a) -> (Ga -> Gb)
+      #+END_SRC
+      #+BEGIN_SRC haskell
+      class Contravariant f where
+        contramap :: (b -> a) -> (f a -> f b)
+      #+END_SRC
+      #+BEGIN_SRC haskell
+      instance Contravariant (Op r) where
+        contramap f g = g . f
+      #+END_SRC
+    - Profunctors
+      C^op x D -> Set
+      - Contrafunctorial in the first argument and functorial in the
+        second argument
+      #+BEGIN_SRC haskell
+      class Profunctor p where
+        dimap :: (a -> b) -> (c -> d) -> p b c -> p a d
+        dimap f g = lmap f . rmap g
+        lmap :: (a -> b) -> (p b c) -> p a c
+        lmap f = dimap f id
+        rmap :: (b -> c) -> (p b c) -> p b d
+        rmap = dimap id
+      #+END_SRC
+      #+BEGIN_SRC haskell
+      instance Profunctor (->) where
+        dimap ab cd bc = cd . bc . ab
+        lmap = flip (.)
+        rmap = (.)
+      #+END_SRC
+    - Used in haskell lens library.
+    - Hom-Functor
+      

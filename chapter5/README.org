@@ -1,0 +1,18 @@
+* Products and Coproducts
+
+** Initial Objects
+   - Initial Object is the object that has one and only one morphism
+     going to any object in the category.
+   #+BEGIN_SRC haskell
+   absurd :: Void -> a
+   #+END_SRC
+
+** Terminal Object
+   - Terminal object is the object with one and only one morphism
+     coming to it from any object in the category.
+     #+BEGIN_SRC haskell
+     unit :: a -> ()
+     unit _  = ()
+     #+END_SRC
+
+** 
