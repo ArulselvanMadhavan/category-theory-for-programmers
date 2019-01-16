@@ -1,0 +1,125 @@
+* Function Types
+  - In the category Set every hom-set is itself an object in the same category.
+  - This self referential nature of the category Set that makes
+    function types special.
+  - External hom-set
+    - hom-sets are external to the category.
+  - Internal hom-set
+    - In some categories it is possible to construct objects that
+      represent hom-sets.
+** Universal Construction
+   - Function types are internal hom-set
+   - Things needed for universal constructoin
+     - The function type we are constructing.
+     - Argument type
+     - result type
+   - The pattern that connects all three is called function application/evaluation.
+   - Given a function type,
+     - z (an object in the category)
+     - a (Argument type)
+   - Function application maps this pair to the result type b
+   - The product z x a is an object
+   - There is no function type when there is no product type.
+*** Ranking
+    - Unique mapping between candidate objects - a mapping that
+      somehow factorizes the universal construction.
+*** Formal definition
+    A /function object/ from a to b is an object a => b together with
+    the morphism - eval :: ((a => b) x a) -> b such that for any other
+    object z with the morphism g :: (z x a) -> b there is a unique
+    morphism h :: z -> (a => b) that factors g through eval
+    g = eval compose (h x id)
+*** Category Set
+    - There is no guarantee that such a function a => b exists for any
+      pair of objects a and b in a given category. But it always does
+      in Set.
+    - In Set, this function object is isomorphic to hom-set Set(a, b)
+    - This is why we interpret haskell function type a -> b as
+      categorical function object a => b
+*** Currying
+    #+BEGIN_SRC haskell
+      factorizer :: ((z, a) -> b) -> z -> a -> b
+      factorizer g = \z -> (\a -> g (z, a)) -- h ::  z -> (a => b)
+    #+END_SRC
+    - curry is the factorizer for the universal construction.
+** Exponentials
+   - Function object or internal hom-object between two objects a and
+     b, is often called /exponential/ and denoted by b^a
+** Cartesian Closed Categories
+   - Larger family of categories called Cartesian Closed.
+   - Set is one example from it.
+   - A Cartesian Closed Category must contain
+     - A Terminal object
+     - Product of any pair of objects
+     - Exponential for any pair of objects.
+   - Cartesian closed categories provide models for simply typed
+     lambda calculus.
+   - Terminal object and the product have their duals.
+     - It's initial object and the coproduct.
+   - Bicartesian closed category: A cartesian closed category
+     - that supports initial object and coproduct
+     - product can be distributed over coproduct
+   - Set is an example of Bicartesian
+** Exponentials and Algebraic Data Types
+*** Zeroth power
+    ~a^0 = 1~
+    - In Categorical interpretation,
+      - replace 0 with initial object.
+      - replace 1 with final object.
+      - Exponential is the internal hom-object
+      - Set of morphisms going from the intial object to an arbitrary
+        object a.
+      - C(0, a) => Singleton Set.(Terminal object)
+        #+BEGIN_SRC haskell
+        absurd :: Void -> a
+        #+END_SRC
+*** Powers of One
+    ~1^a = 1~
+    - In categorical interpretation,
+      - Unique morphism from any object to the terminal object.
+      - Internal hom-object from /a/ to the terminal object is
+        isomorphic to the terminal object itself.
+        #+BEGIN_SRC haskell
+        unit :: a -> ()
+        #+END_SRC
+*** First power
+    ~a^1 = a~
+    - In categorical interpretation,
+      - Morphisms from the terminal objects can be used to pick
+        elements of /a/
+      - Set of such morphisms is isomorphic to the object itself.
+      - Set of functions with signature () -> a is isomorphic to the
+        set /a/
+*** Exponentials of Sums
+    ~a^(b+c) = a^b * a^c~
+    - In categorical interpretation,
+      - Exponential from a coproduct of two objects is isomorphic to
+        the product of two exponentials
+*** Exponentials of Exponentials
+    ~(a^b)^c = a^(b*c)~
+    - In categorical interpretation,
+      - Expressing currying purely in terms of exponential objects.
+*** Exponentials over products
+    ~(a * b)^c = a^c x b^c~
+    - In categorical interpretation,
+      - A functoin returning a pair is equivalent to a pair of
+        functions, each producing one element of the pair.
+** Curry Howard Isomorphism
+   - Logic and ADT
+     - Void - false
+     - Unit - true
+     - Product - Conjunction
+     - Sum - Disjunction
+     - Function type - Logical implication (if a then b)
+   - Curry Howard Isomorphism
+     - Every type can be interpreted as a proposition
+     - Proposition is true if the type is inhabited and false if it isn't.
+     - Implementation of a function is therefore a proof of theorem.
+     - Writing programs is equivalent to proving theorems.
+     - Sample haskell function
+       #+BEGIN_SRC haskell
+       eval :: ((a -> b), a) -> b
+       #+END_SRC
+     - Logical predicate
+       ~((a => b) ⋂ a) => b~
+     - If it's true that b follows from a and a is true then b must be true.
